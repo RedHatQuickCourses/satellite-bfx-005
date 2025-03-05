@@ -1,5 +1,5 @@
 site:
-  title: Red Hat Satellite Break-fix Practice 5 (FIXME)
+  title: "Break-fix Practice: Fixing httpd service on Red Hat Satellite 6"
   start_page: satellite-bfx-005::index.adoc
 
 content:
