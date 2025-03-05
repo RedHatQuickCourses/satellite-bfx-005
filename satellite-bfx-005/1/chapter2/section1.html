@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Guided solution (page 1 of 2) :: Red Hat Satellite Break-fix Practice 5 (FIXME)</title>
+    <title>Guided Solution :: Break-fix Practice: Fixing httpd service on Red Hat Satellite 6</title>
     <link rel="prev" href="index.html">
-    <link rel="next" href="section2.html">
+    <link rel="next" href="../appendix/appendix.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -15,7 +15,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
-      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Red Hat Satellite Break-fix Practice 5 (FIXME)</a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Break-fix Practice: Fixing httpd service on Red Hat Satellite 6</a>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
         <span></span>
@@ -35,7 +35,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Red Hat Satellite Break-fix Practice 5 (FIXME)</a></h3>
+    <h3 class="title"><a href="../index.html">Break-fix Practice: Fixing HTTPD service on Red Hat Satellite 6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -61,7 +61,7 @@
     <a class="nav-link" href="../chapter1/section1.html">Break-fix activity</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section2.html">Check your work</a>
+    <a class="nav-link" href="../chapter1/section2.html">Break-fix Scenario</a>
   </li>
 </ul>
   </li>
@@ -74,10 +74,7 @@
     <a class="nav-link" href="index.html">Guided solution</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section1.html">Guided solution (page 1 of 2)</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Guided solution (page 2 of 2)</a>
+    <a class="nav-link" href="section1.html">Guided Solution</a>
   </li>
 </ul>
   </li>
@@ -95,12 +92,12 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Red Hat Satellite Break-fix Practice 5 (FIXME)</span>
+    <span class="title">Break-fix Practice: Fixing HTTPD service on Red Hat Satellite 6</span>
     <span class="version">1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="../index.html">Red Hat Satellite Break-fix Practice 5 (FIXME)</a>
+      <a class="title" href="../index.html">Break-fix Practice: Fixing HTTPD service on Red Hat Satellite 6</a>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">1</a>
@@ -118,9 +115,9 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Red Hat Satellite Break-fix Practice 5 (FIXME)</a></li>
+    <li><a href="../index.html">Break-fix Practice: Fixing HTTPD service on Red Hat Satellite 6</a></li>
     <li><a href="index.html">Guided solution</a></li>
-    <li><a href="section1.html">Guided solution (page 1 of 2)</a></li>
+    <li><a href="section1.html">Guided Solution</a></li>
   </ul>
 </nav>
 </div>
@@ -129,13 +126,155 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Guided solution (page 1 of 2)</h1>
+<h1 class="page">Guided Solution</h1>
+<div class="sect1">
+<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Investigate why the httpd service is not running on the Satellite.</p>
+</li>
+<li>
+<p>Solve the upgrade issue in the hands-on lab environment.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instructions"><a class="anchor" href="#_instructions"></a>Instructions</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>FIXME: Provide step-by-step instructions here to resolve the issue.</p>
+<p>Run following instructions on <code>satellite</code> system with <code>root</code> as user.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[ec2-user@satellite ~]$ sudo su -
+[root@satellite ~]#</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Try to restart the services on the Satellite</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-maintain service restart</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre># satellite-maintain service restart
+Running Restart Services
+================================================================================
+Check if command is run as root user:                                 [OK]
+--------------------------------------------------------------------------------
+Restart applicable services:
+
+Restarting the following service(s):
+redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pulpcore-worker@2.service, tomcat, dynflow-sidekiq@orchestrator, foreman, httpd, dynflow-sidekiq@worker-1, dynflow-sidekiq@worker-hosts-queue-1, foreman-proxy
+/ restarting httpd
+Job for httpd.service failed because the control process exited with error code.
+See "systemctl status httpd.service" and "journalctl -xe" for details.
+- All services restarted                                              [OK]
+--------------------------------------------------------------------------------</pre>
+</div>
+</div>
+</li>
+<li>
+<p><code>/var/log/httpd/foreman-ssl_error_ssl.log</code> shows the following message.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">AH01898: Unable to configure permitted SSL ciphers
+SSL Library Error: error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:no cipher match</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The error indicates that the there is some issue with the TLS ciphers on the system.</p>
+</li>
+<li>
+<p>List the ciphers that are allowed with the following command.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">openssl ciphers -v</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre># satellite-maintain service restart
+TLS_AES_256_GCM_SHA384  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(256) Mac=AEAD
+TLS_CHACHA20_POLY1305_SHA256 TLSv1.3 Kx=any      Au=any  Enc=CHACHA20/POLY1305(256) Mac=AEAD
+TLS_AES_128_GCM_SHA256  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(128) Mac=AEAD</pre>
+</div>
+</div>
+</li>
+<li>
+<p>The command list significantly smaller number of ciphers that normal.</p>
+</li>
+<li>
+<p>Check the crypto policy of the system with the following command:</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">update-crypto-policies --show</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre># update-crypto-policies --show
+FIP</pre>
+</div>
+</div>
+</li>
+<li>
+<p>The system is configured to use a non-standard crypto policy. Satellite servers can be configured with either <code>DEFAULT</code> or <code>FIPS</code> crypto policies. Custom policy are not supported.</p>
+</li>
+<li>
+<p>Switch the system back to DEFAULT crypto policy.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">update-crypto-policies --set DEFAULT</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre># update-crypto-policies --set DEFAULT
+Setting system policy to DEFAULT
+Note: System-wide crypto policies are applied on application start-up.
+It is recommended to restart the system for the change of policies
+to fully take place.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>For the policies to take full effect, reboot the system.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">reboot</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once the system is available, confirm if the services are running.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hammer ping</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Guided solution</a></span>
-  <span class="next"><a href="section2.html">Guided solution (page 2 of 2)</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
 </nav>
 </article>
   </div>
