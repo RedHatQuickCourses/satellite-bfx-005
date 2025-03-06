@@ -3,8 +3,8 @@
 
 == Objectives
 
-* Investigate why the httpd service is not running on the Satellite.
-* Solve the upgrade issue in the hands-on lab environment.
+* Investigate why the `httpd` service is not running on the Satellite.
+* Solve the `httpd` service issue in the hands-on lab environment.
 
 == Instructions
 
@@ -25,34 +25,36 @@ satellite-maintain service restart
 +
 .Sample output:
 ----
-# satellite-maintain service restart
+[root@satellite ~]# satellite-maintain service restart
 Running Restart Services
 ================================================================================
 Check if command is run as root user:                                 [OK]
 --------------------------------------------------------------------------------
-Restart applicable services: 
+Restart applicable services:
 
 Restarting the following service(s):
-redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pulpcore-worker@2.service, tomcat, dynflow-sidekiq@orchestrator, foreman, httpd, dynflow-sidekiq@worker-1, dynflow-sidekiq@worker-hosts-queue-1, foreman-proxy
-/ restarting httpd                                                              
+redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pulpcore-worker@2.service, pulpcore-worker@3.service, pulpcore-worker@4.service, pulpcore-worker@5.service, pulpcore-worker@6.service, pulpcore-worker@7.service, pulpcore-worker@8.service, tomcat, dynflow-sidekiq@orchestrator, foreman, httpd, dynflow-sidekiq@worker-1, dynflow-sidekiq@worker-hosts-queue-1, foreman-proxy
+\ restarting httpd
 Job for httpd.service failed because the control process exited with error code.
 See "systemctl status httpd.service" and "journalctl -xe" for details.
-- All services restarted                                              [OK]      
+\ All services restarted                                              [OK]
 --------------------------------------------------------------------------------
 ----
 
-. `/var/log/httpd/foreman-ssl_error_ssl.log` shows the following message.
+. Review the `/var/log/httpd/foreman-ssl_error_ssl.log` file and notice the following message.
 +
-[source,bash,role=execute]
+.Sample output:
 ----
-AH01898: Unable to configure permitted SSL ciphers
-SSL Library Error: error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:no cipher match
+[root@satellite ~]# cat /var/log/httpd/foreman-ssl_error_ssl.log | grep -i Error -B 1
+[Thu Mar 06 19:05:54.725647 2025] [ssl:emerg] [pid 826:tid 139975583476032] AH01898: Unable to configure permitted SSL ciphers
+[Thu Mar 06 19:05:54.726509 2025] [ssl:emerg] [pid 826:tid 139975583476032] SSL Library Error: error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:no cipher match
+[Thu Mar 06 19:13:32.566905 2025] [ssl:emerg] [pid 4037:tid 140652416055616] AH01898: Unable to configure permitted SSL ciphers
+[Thu Mar 06 19:13:32.566922 2025] [ssl:emerg] [pid 4037:tid 140652416055616] SSL Library Error: error:1410D0B9:SSL routines:SSL_CTX_set_cipher_list:no cipher match
 ----
 
-. The error indicates that the there is some issue with the TLS ciphers on the system.
+. The error from previous step indicates that there is some issue with the TLS ciphers on the system.
 
 . List the ciphers that are allowed with the following command.
-
 +
 [source,bash,role=execute]
 ----
@@ -61,16 +63,15 @@ openssl ciphers -v
 +
 .Sample output:
 ----
-# satellite-maintain service restart
+[root@satellite ~]# openssl ciphers -v
 TLS_AES_256_GCM_SHA384  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(256) Mac=AEAD
 TLS_CHACHA20_POLY1305_SHA256 TLSv1.3 Kx=any      Au=any  Enc=CHACHA20/POLY1305(256) Mac=AEAD
 TLS_AES_128_GCM_SHA256  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(128) Mac=AEAD
 ----
 
-. The command list significantly smaller number of ciphers that normal.
+. The previous command list significantly smaller number of ciphers which is normal.
 
-. Check the crypto policy of the system with the following command:
-
+. Check the crypto policy of the system by running the `update-crypto-policies --show` command.
 +
 [source,bash,role=execute]
 ----
@@ -79,14 +80,15 @@ update-crypto-policies --show
 +
 .Sample output:
 ----
-# update-crypto-policies --show
+[root@satellite ~]# update-crypto-policies --show
 FIP
 ----
 
-. The system is configured to use a non-standard crypto policy. Satellite servers can be configured with either `DEFAULT` or `FIPS` crypto policies. Custom policy are not supported.
+. The system is configured to use a non-standard crypto policy.
+Satellite servers can be configured with either `DEFAULT` or `FIPS` crypto policies.
+Custom policy are not supported.
 
 . Switch the system back to DEFAULT crypto policy.
-
 +
 [source,bash,role=execute]
 ----
@@ -95,7 +97,7 @@ update-crypto-policies --set DEFAULT
 +
 .Sample output:
 ----
-# update-crypto-policies --set DEFAULT
+[root@satellite ~]# update-crypto-policies --set DEFAULT
 Setting system policy to DEFAULT
 Note: System-wide crypto policies are applied on application start-up.
 It is recommended to restart the system for the change of policies
@@ -103,7 +105,6 @@ to fully take place.
 ----
 
 . For the policies to take full effect, reboot the system.
-
 +
 [source,bash,role=execute]
 ----
@@ -111,9 +112,43 @@ reboot
 ----
 
 . Once the system is available, confirm if the services are running.
-
 +
 [source,bash,role=execute]
 ----
 hammer ping
+----
++
+.Sample output:
+----
+[root@satellite ~]# hammer ping
+database:
+    Status:          ok
+    Server Response: Duration: 0ms
+cache:
+    servers:
+     1) Status:          ok
+        Server Response: Duration: 0ms
+candlepin:
+    Status:          ok
+    Server Response: Duration: 39ms
+candlepin_auth:
+    Status:          ok
+    Server Response: Duration: 25ms
+candlepin_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+katello_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+pulp3:
+    Status:          ok
+    Server Response: Duration: 189ms
+pulp3_content:
+    Status:          ok
+    Server Response: Duration: 37ms
+foreman_tasks:
+    Status:          FAIL
+    Server Response: Message: some executors are not responding, check /foreman_tasks/dynflow/status
 ----

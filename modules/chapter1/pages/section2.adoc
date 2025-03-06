@@ -1,21 +1,21 @@
 = Break-fix Scenario
 
-Httpd service is not running on the provided `6.15.z` Satellite. The service is failing due to some incorrect configuration. 
-The objective of the breakfix is to investigate the issue and ensure all services are running on the Satellite server.
+Httpd service is not running on the provided `6.15.z` Satellite server.
+The service is failing due to some incorrect configuration.
+Your job is to investigate the issue and ensure all services are running on the Satellite server.
 
 Here is error the message:
 
 .Sample output
 ----
 [root@satellite ~]# hammer ping
-Could not load the API description from the server: 
-Failed to open TCP connection to satellite.example.com:443 (Connection refused - connect(2) for "satellite.example.com" port 443)
+Error: Failed to open TCP connection to satellite.drz86.sandbox565.opentlc.com:443 (Connection refused - connect(2) for "satellite.drz86.sandbox565.opentlc.com" port 443)
 ----
 
 == Objectives
 
 * Investigate why the `httpd` service is not running on the Satellite.
-* Solve the service issue in the hands-on lab environment.
+* Solve the `httpd` service issue in the hands-on lab environment.
 
 == Recreate Scenario
 
@@ -23,14 +23,14 @@ To recreate this scenario, run the `lab` script on `bastion` server.
 
 [source,bash,role=execute]
 ----
-lab break breakfix5
+lab break breakfix4
 ----
 
 .Sample output
 ----
-[lab-user@bastion ~]$ lab break breakfix5
-Initiating /usr/local/bin/lab with option(s) break breakfix5
-Completed /usr/local/bin/lab with option(s) break breakfix1 successfully
+[lab-user@bastion ~]$ lab break breakfix4
+Initiating /usr/local/bin/lab with option(s) break breakfix4
+Completed /usr/local/bin/lab with option(s) break breakfix4 successfully
 ----
 
 [NOTE]
@@ -47,34 +47,34 @@ hammer ping
 
 .Sample output:
 ----
-database:         
+database:
     Status:          ok
     Server Response: Duration: 1ms
-cache:            
-    servers: 
+cache:
+    servers:
      1) Status:          ok
         Server Response: Duration: 0ms
-candlepin:        
+candlepin:
     Status:          ok
     Server Response: Duration: 93ms
-candlepin_auth:   
+candlepin_auth:
     Status:          ok
     Server Response: Duration: 61ms
-candlepin_events: 
+candlepin_events:
     Status:          ok
     message:         0 Processed, 0 Failed
     Server Response: Duration: 0ms
-katello_events:   
+katello_events:
     Status:          ok
     message:         0 Processed, 0 Failed
     Server Response: Duration: 0ms
-pulp3:            
+pulp3:
     Status:          ok
     Server Response: Duration: 351ms
-pulp3_content:    
+pulp3_content:
     Status:          ok
     Server Response: Duration: 56ms
-foreman_tasks:    
+foreman_tasks:
     Status:          ok
     Server Response: Duration: 3ms
 ----

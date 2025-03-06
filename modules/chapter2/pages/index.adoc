@@ -1,4 +1,4 @@
-= Guided solution
+= Guided Solution
 
 This section presents a guided solution to the break-fix activity.
 
