@@ -149,7 +149,7 @@
 <h2 id="_instructions"><a class="anchor" href="#_instructions"></a>Instructions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run following instructions on <code>satellite</code> system with <code>root</code> as user.</p>
+<p>Run the following instructions on the <code>satellite</code> system with <code>root</code> as user.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output:</div>
@@ -201,7 +201,7 @@ See "systemctl status httpd.service" and "journalctl -xe" for details.
 </div>
 </li>
 <li>
-<p>The error from previous step indicates that there is some issue with the TLS ciphers on the system.</p>
+<p>The error from the previous step indicates that there is some issue with the TLS ciphers on the system.</p>
 </li>
 <li>
 <p>List the ciphers that are allowed with the following command.</p>
@@ -221,7 +221,7 @@ TLS_AES_128_GCM_SHA256  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(128) Mac=AEAD</pr
 </div>
 </li>
 <li>
-<p>The previous command list significantly smaller number of ciphers which is normal.</p>
+<p>The previous command lists a significantly smaller number of ciphers which is normal.</p>
 </li>
 <li>
 <p>Check the crypto policy of the system by running the <code>update-crypto-policies --show</code> command.</p>
@@ -241,7 +241,7 @@ FIP</pre>
 <li>
 <p>The system is configured to use a non-standard crypto policy.
 Satellite servers can be configured with either <code>DEFAULT</code> or <code>FIPS</code> crypto policies.
-Custom policy are not supported.</p>
+Custom policies are not supported.</p>
 </li>
 <li>
 <p>Switch the system back to DEFAULT crypto policy.</p>
