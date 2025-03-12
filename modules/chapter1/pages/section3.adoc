@@ -2,7 +2,7 @@
 
 == Check your work using the grading script
 
-After you have resolved the issue and met the success criteria, login to `bastion` system as `lab-user` user and run the grading script as shown here to check your work:
+After you have resolved the issue and met the success criteria, log in to the `bastion` system as the `lab-user` user and run the grading script as shown here to check your work:
 
 [source,bash,role=execute]
 ----

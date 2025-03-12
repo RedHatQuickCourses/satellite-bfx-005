@@ -17,7 +17,7 @@
 - You can also **retrieve lab access** directly from the RHDP portal.
 
 === How to Access Your Lab via the RHDP Portal:
-. On the RHDP portal, **click** on the **Services** option in the left-hand menu.
+. On the RHDP portal, **click** the **Services** option in the left-hand menu.
 . **Select your lab** from the listings on the right-hand side of the page to view access details.
 
 [[RHDP-Portal-Links]]

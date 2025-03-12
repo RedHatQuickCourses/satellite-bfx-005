@@ -1,4 +1,4 @@
-= Fixing httpd service on Red Hat Satellite 6
+= Fixing httpd Service on Red Hat Satellite 6
 :navtitle: Home
 
 == Introduction
@@ -12,4 +12,4 @@
 This break-fix training simulates problems which are frequently encountered with services of Red Hat Satellite 6.
 You'll investigate and solve the problem in a hands-on lab environment to complete the training.
 
-NOTE: After ordering the lab run the lab preparation instruction only *ONCE* .
+NOTE: After ordering the lab run the lab preparation instruction only *ONCE*.
