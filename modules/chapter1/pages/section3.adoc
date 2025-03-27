@@ -21,3 +21,10 @@ ok: [satellite] => {
 ...
 ...
 ----
+
+== Submit the completion code
+
+Enter the complete code in the `Course Completion` section.
+
+image::course_completion.png[align=left,width=540,height=380,link=self,window=_blank]
+ Tip: click on the image to open in a new tab for better visibility
